@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <title>Mini Draggable Form</title>
+</head>
+<body>
+    <div id="form">
+        <header>
+            <p>Mini Draggable Form</p>
+        </header>
+        <div class="content">
+            <div class="bottom-header">
+                <p>test</p>
+            </div>    
+        </div>
+    </div>
+        
+    <script>
+        let form = document.querySelector("#form");
+        header = form.querySelector("header");
+
+        function onDrag({movementX, movementY}) {
+            let style = window.getComputedStyle(form);
+            let left = parseInt(style.left);
+            let top = parseInt(style.top);
+            form.style.left = `${left + movementX}px`;
+            form.style.top = `${top + movementY}px`;
+        }
+
+        header.addEventListener("mousedown", ()=> {
+            header.classList.add("active");
+            header.addEventListener("mousemove", onDrag);
+        });
+
+        document.addEventListener("mouseup", ()=> {
+            header.classList.remove("active");
+            header.removeEventListener("mousemove", onDrag);
+        });
+    </script>
+</body>
+</html>
